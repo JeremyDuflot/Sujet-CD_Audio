@@ -21,7 +21,7 @@ Deux interactions distinctes ont été testées, comme demandé :
 - **API ↔ base de données** : 3 tests couvrant le cycle complet POST/GET/DELETE sur une
   vraie base PostgreSQL (via Docker), avec `supertest`
   Fichier : `server/tests/integration/cdRoutes.integration.test.js`
-- **API ↔ frontend** : 3 tests appelant réellement `cdService.js` (aucun mock) contre le
+- **API ↔ frontend** : 3 tests appelant `cdService.js` (aucun mock) contre le
   backend Express et la base PostgreSQL réels, pour valider la communication HTTP complète
   entre le frontend et l'API
   Fichier : `client/src/services/__tests__/cdService.integration.test.js`
@@ -81,7 +81,7 @@ Corrections apportées :
 - **Faux positifs** : exclusion des rapports générés `zap_report*.html` de l'analyse
   (artefacts de CI, pas du code source de l'application)
 
-Résultat final : 0 vulnérabilité de sécurité, code conforme aux standards de qualité SonarCloud.
+Résultat final : 0 vulnérabilité de sécurité, code conforme aux standards de qualité SonarCloud. ( corrections réalisées avec l'ia )
 
 ### Scan OWASP ZAP (baseline)
 Scan initial : 0 FAIL, 58 PASS, 9 WARN (headers de sécurité HTTP manquants).
@@ -107,6 +107,8 @@ Résultat final : 0 FAIL, 64 PASS, 3 WARN mineurs et justifiés :
   sécurité > performance de cache)
 - "Modern Web Application" : avertissement purement informatif de ZAP, ne constitue pas
   une vulnérabilité
+
+  ( corrections réalisées avec l'ia )
 
 ## 💡 Pistes d'amélioration non implémentées (par manque de temps)
 - DockerScout pour l'analyse des vulnérabilités des images Docker
