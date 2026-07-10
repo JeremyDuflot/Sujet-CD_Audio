@@ -8,7 +8,8 @@
   "build": "vite build",
   "lint": "eslint .",
   "preview": "vite preview",
-  "test": "vitest run"
+  "test": "vitest run",
+  "test:integration": "vitest run src/services/__tests__/cdService.integration.test.js"
 },
   "dependencies": {
     "axios": "^1.8.3",

@@ -16,9 +16,20 @@ Insérez ici vos commentaires, retours ou propositions.# Retours et propositions
 - Fichier : `server/Controllers/__tests__/cdController.test.js`
 
 ### Tests d'intégration
-- 3 tests couvrant le cycle complet POST/GET/DELETE sur une vraie base PostgreSQL
-  (via Docker), avec `supertest`
-- Fichier : `server/tests/integration/cdRoutes.integration.test.js`
+Deux interactions distinctes ont été testées, comme demandé :
+ 
+- **API ↔ base de données** : 3 tests couvrant le cycle complet POST/GET/DELETE sur une
+  vraie base PostgreSQL (via Docker), avec `supertest`
+  Fichier : `server/tests/integration/cdRoutes.integration.test.js`
+- **API ↔ frontend** : 3 tests appelant réellement `cdService.js` (aucun mock) contre le
+  backend Express et la base PostgreSQL réels, pour valider la communication HTTP complète
+  entre le frontend et l'API
+  Fichier : `client/src/services/__tests__/cdService.integration.test.js`
+### Tests End-to-End (Cypress)
+- Scénario complet : ajout d'un CD → affichage dans la liste → suppression
+- Fichier : `client/cypress/e2e/cd_management.cy.js`
+- **Bonus** : tests multi-viewport (mobile, tablette, desktop) pour valider le responsive
+  Fichier : `client/cypress/e2e/responsive.cy.js`
 
 ### Tests End-to-End (Cypress)
 - Scénario complet : ajout d'un CD → affichage dans la liste → suppression
@@ -46,6 +57,8 @@ Insérez ici vos commentaires, retours ou propositions.# Retours et propositions
 ### Analyse SonarCloud
 Analyse initiale : 9 vulnérabilités de sécurité + plusieurs code smells.
 
+![Quality Gate SonarCloud - Passed](screenshots/sonarcloud-overview.png)
+
 Corrections apportées :
 - **cdService.js** : validation de l'`id` avant construction de l'URL (protection contre
   la manipulation d'URL avec des données non validées)
@@ -72,6 +85,8 @@ Résultat final : 0 vulnérabilité de sécurité, code conforme aux standards d
 
 ### Scan OWASP ZAP (baseline)
 Scan initial : 0 FAIL, 58 PASS, 9 WARN (headers de sécurité HTTP manquants).
+
+![Résultat final scan ZAP](screenshots/zap-final-scan.png)
 
 Corrections apportées via une configuration nginx personnalisée (`client/nginx.conf`) :
 - Ajout de `X-Content-Type-Options: nosniff`
