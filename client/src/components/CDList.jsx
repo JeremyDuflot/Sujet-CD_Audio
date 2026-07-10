@@ -3,7 +3,7 @@ import { getCDs, deleteCD } from "../services/cdService";
 import CDItem from "./CDItem";
 
 const CDList = () => {
-  const [cds, setCDs] = useState([]);
+  const [cds, setCds] = useState([]);
 
   useEffect(() => {
     fetchCDs();
@@ -11,7 +11,7 @@ const CDList = () => {
 
   const fetchCDs = async () => {
     const data = await getCDs();
-    setCDs(data);
+    setCds(data);
   };
 
   const handleDelete = async (id) => {
@@ -33,4 +33,4 @@ const CDList = () => {
   );
 };
 
-export default CDList
+export default CDList;

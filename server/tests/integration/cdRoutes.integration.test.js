@@ -12,12 +12,10 @@ app.use("/api", cdRoutes);
 describe("Tests d'intégration - API CD ↔ Base de données", () => {
   let createdId;
 
-  // Nettoyage avant de commencer, pour partir sur une base propre
   beforeAll(async () => {
     await pool.query("DELETE FROM cds WHERE title = $1", ["CD Test Intégration"]);
   });
 
-  // Fermer la connexion à la fin pour que Jest ne reste pas bloqué
   afterAll(async () => {
     await pool.query("DELETE FROM cds WHERE title = $1", ["CD Test Intégration"]);
     await pool.end();
@@ -34,9 +32,8 @@ describe("Tests d'intégration - API CD ↔ Base de données", () => {
 
     createdId = res.body.id;
 
-    // Vérification directe en base
     const dbCheck = await pool.query("SELECT * FROM cds WHERE id = $1", [createdId]);
-    expect(dbCheck.rows.length).toBe(1);
+    expect(dbCheck.rows).toHaveLength(1);
     expect(dbCheck.rows[0].artist).toBe("Artiste Test");
   });
 
@@ -56,6 +53,6 @@ describe("Tests d'intégration - API CD ↔ Base de données", () => {
     expect(res.status).toBe(204);
 
     const dbCheck = await pool.query("SELECT * FROM cds WHERE id = $1", [createdId]);
-    expect(dbCheck.rows.length).toBe(0);
+    expect(dbCheck.rows).toHaveLength(0);
   });
 });
