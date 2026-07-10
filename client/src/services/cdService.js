@@ -13,5 +13,9 @@ export const addCD = async (cd) => {
 };
 
 export const deleteCD = async (id) => {
-  await axios.delete(`${API_URL}/${id}`);
+  const safeId = Number(id);
+  if (!Number.isInteger(safeId) || safeId <= 0) {
+    throw new Error("Identifiant de CD invalide");
+  }
+  await axios.delete(`${API_URL}/${safeId}`);
 };
