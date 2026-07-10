@@ -28,6 +28,7 @@ services:
       DB_HOST: postgres
       DB_PORT: 5432
       PORT: 5005
+      CLIENT_URL: http://localhost:3000
     ports:
       - "5005:5005"
 

@@ -5,7 +5,11 @@ const cdRoutes = require("./Routes/cdRoutes");
 
 const app = express();
 
-app.use(cors());
+app.disable("x-powered-by"); 
+const corsOptions = {
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api", cdRoutes);
